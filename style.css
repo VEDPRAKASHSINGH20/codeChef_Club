@@ -545,3 +545,31 @@ h2 {
   font-size: 1.8rem;
   --c: var(--pri);
 }
+
+/* ===== 11. FOOTER LINKS & PRIVACY POLICY PAGE ===== */
+footer p {
+  margin: 4px 0;
+}
+footer a {
+  text-decoration: underline;
+}
+.policy {
+  max-width: 760px;
+}
+.policy h2 {
+  font-size: 1.2rem;
+  margin: 24px 0 6px;
+}
+.policy p,
+.policy li {
+  color: var(--mut);
+}
+.note {
+  font-size: 0.8rem;
+  color: var(--mut);
+  margin: 10px 0 0;
+}
+.note a {
+  color: var(--pri);
+  text-decoration: underline;
+}

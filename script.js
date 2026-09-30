@@ -3,7 +3,7 @@
    How the app works:
    1. DATA      -> events + registrations kept in memory and saved to localStorage
    2. HELPERS   -> small reusable functions (formatting, popups, toast)
-   3. PAGES     -> home, events list, admin (each one builds HTML with JavaScript)
+   3. PAGES     -> home, events list, privacy, admin (each one builds HTML with JavaScript)
    4. FORMS     -> registration form validation, admin add/edit/delete
    5. ROUTER    -> shows the right page based on the URL after '#'
    ===================================================== */
@@ -256,6 +256,27 @@ function eventsPage() {
   draw();
 }
 
+// PRIVACY POLICY PAGE: plain text explaining what data we collect and why
+function privacyPage() {
+  $("#app").innerHTML = `<div class="policy"><h1 style="margin-top:0">Privacy Policy</h1>
+  <p>Last updated: 30 September 2026</p>
+  <h2>What we collect</h2>
+  <p>When you register for an event we ask for your name, email address, college/year and phone number.</p>
+  <h2>Why we collect it</h2>
+  <p>Only to manage event registrations: to know who is attending and to contact you about the event.</p>
+  <h2>Where it is stored</h2>
+  <p>In this demo version, data is saved in your own browser (localStorage) and is not sent to any server. If the site is later connected to a database, this policy will be updated.</p>
+  <h2>Sharing</h2>
+  <p>We do not sell or share your information with third parties. Club administrators can view registrations for the events they manage.</p>
+  <h2>Your choices</h2>
+  <p>You can ask the club to delete your registration at any time. Administrators can remove entries from the dashboard.</p>
+  <h2>Contact</h2>
+  <p>Questions? Email the club at <b>club@example.com</b> (replace with your real address).</p>
+  <h2>Copyright</h2>
+  <p>© ${new Date().getFullYear()} CodeCrew Club. All rights reserved. Event names and descriptions belong to the club.</p>
+  <p><a class="btn sec" href="#/">← Back to home</a></p></div>`;
+}
+
 // ---------- 4. REGISTRATION FORM ----------
 // Opens the registration popup for one event
 function openReg(id) {
@@ -265,6 +286,7 @@ function openReg(id) {
   <label>Name</label><input id="rn"><label>Email</label><input id="re" type="email">
   <label>College / Year</label><input id="rc" placeholder="e.g. ABC College, 2nd Year">
   <label>Phone number</label><input id="rp" type="tel" inputmode="numeric">
+  <p class="note">By submitting, you agree to our <a href="#/privacy">Privacy Policy</a>.</p>
   <div class="err" id="rerr"></div>
   <div class="row"><button class="btn sec" onclick="closeModal()">Cancel</button><button class="btn" onclick="submitReg('${id}')">Submit</button></div>`);
 }
@@ -439,16 +461,19 @@ function delReg(id) {
 }
 
 // ---------- 5. ROUTER ----------
-// Reads the URL part after '#' (/, /events, /admin) and shows that page
+// Reads the URL part after '#' (/, /events, /admin, /privacy) and shows that page
 function route() {
   closeModal();
   const r = location.hash.slice(1) || "/";
   document
     .querySelectorAll(".nav .l")
     .forEach((a) => a.classList.toggle("on", a.dataset.r === r));
-  (r === "/events" ? eventsPage : r === "/admin" ? adminPage : home)();
+  const pages = { "/events": eventsPage, "/admin": adminPage, "/privacy": privacyPage };
+  (pages[r] || home)();
   window.scrollTo(0, 0);
 }
+// Show the current year in the footer copyright line
+$("#year").textContent = new Date().getFullYear();
 // Run when the URL changes, and once when the page first loads
 addEventListener("hashchange", route);
 route();
