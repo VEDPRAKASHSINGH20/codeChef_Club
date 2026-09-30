@@ -1,0 +1,30 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, viewport-fit=cover"
+    />
+    <title>CodeCrew Club Events</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <!-- Navigation bar (links use #/ routes, no page reload) -->
+    <header>
+      <div class="nav">
+        <a class="logo" href="#/">⚡ CodeCrew</a>
+        <a class="l" data-r="/" href="#/">Home</a>
+        <a class="l" data-r="/events" href="#/events">Events</a>
+        <a class="l" data-r="/admin" href="#/admin">Admin</a>
+      </div>
+    </header>
+    <!-- JavaScript renders each page (Home / Events / Admin) into this <main> -->
+    <main id="app"></main>
+    <footer>College Club Events · Demo data is stored in your browser only</footer>
+    <!-- Popups (registration & admin forms) appear inside this div -->
+    <div id="layer"></div>
+
+    <script src="script.js"></script>
+  </body>
+</html>
